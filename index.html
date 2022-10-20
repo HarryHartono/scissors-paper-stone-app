@@ -5,9 +5,11 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <button id="stone" onclick="playerChoice('stone')"><img class="playing-hand" src="graphics/rock hand.png"></button>
-        <button id="paper" onclick="playerChoice('paper')"><img class="playing-hand" src="graphics/paper hand.png"></button>
-        <button id="scissors" onclick="playerChoice('scissors')"><img class="playing-hand" src="graphics/scissors hand.png"></button>
+        <div class="game-container">
+            <button id="stone" onclick="playerChoice('stone')"><img class="playing-hand" src="graphics/rock hand.png"></button>
+            <button id="paper" onclick="playerChoice('paper')"><img class="playing-hand" src="graphics/paper hand.png"></button>
+            <button id="scissors" onclick="playerChoice('scissors')"><img class="playing-hand" src="graphics/scissors hand.png"></button>
+        </div>
         <div id="resultOutcome"></div>
 
         <script>         
@@ -31,32 +33,76 @@
                 targetResult.innerHTML = '';
 
                 const answerElement = document.createElement('div');
+                const playerImgElement = document.createElement('img');
+                playerImgElement.style = "height: 100px"
+                const computerImgElement = document.createElement('img');
+                computerImgElement.style = "height: 100px; transform: scaleX(-1);"
+
                 if (computerAnswer === 'paper') {
+                    computerImgElement.src = "graphics/paper hand.png";
                     if (choiceOfPlayer === 'paper') {
+                        playerImgElement.src = "graphics/paper hand.png";
                         answerElement.innerText = 'Draw! Please try again!';
                     } else if (choiceOfPlayer === 'stone') {
+                        playerImgElement.src = "graphics/rock hand.png";
                         answerElement.innerText = 'Sorry! You lost!';
                     } else {
+                        playerImgElement.src = "graphics/scissors hand.png";
                         answerElement.innerText = 'Congratulations! You won!';
                     }
                 } else if (computerAnswer === 'stone') {
+                    computerImgElement.src = "graphics/rock hand.png";
                     if (choiceOfPlayer === 'paper') {
+                        playerImgElement.src = "graphics/paper hand.png";
                         answerElement.innerText = 'Congratulations! You won!';
                     } else if (choiceOfPlayer === 'stone') {
+                        playerImgElement.src = "graphics/rock hand.png";
                         answerElement.innerText = 'Draw! Please try again!';
                     } else {
+                        playerImgElement.src = "graphics/scissors hand.png";
                         answerElement.innerText = 'Sorry! You lost!';
                     }
                 } else {
+                    computerImgElement.src = "graphics/scissors hand.png";
                     if (choiceOfPlayer === 'paper') {
+                        playerImgElement.src = "graphics/paper hand.png";
                         answerElement.innerText = 'Sorry! You lost!';
                     } else if (choiceOfPlayer === 'stone') {
+                        playerImgElement.src = "graphics/rock hand.png";
                         answerElement.innerText = 'Congratulations! You won!';
                     } else {
+                        playerImgElement.src = "graphics/scissors hand.png";
                         answerElement.innerText = 'Draw! Please try again!';
                     }
                 };
 
+                const containerForPlayerChoice = document.createElement('div');
+                const forPlayerChoice = document.createElement('div');
+                const forPlayerChoiceYou = document.createElement('div');
+                forPlayerChoiceYou.innerText = 'You';
+                
+                
+                forPlayerChoice.appendChild(playerImgElement);
+                forPlayerChoice.appendChild(forPlayerChoiceYou);
+                containerForPlayerChoice.appendChild(forPlayerChoice);
+                
+
+                const newDiv = document.createElement('div');
+                newDiv.innerText = 'vs';
+                containerForPlayerChoice.appendChild(newDiv);
+
+                const forComputerChoice = document.createElement('div');
+                const forComputerChoiceComputer = document.createElement('div');
+                forComputerChoiceComputer.innerText = 'Computer';
+
+                
+                forComputerChoice.appendChild(computerImgElement);
+                forComputerChoice.appendChild(forComputerChoiceComputer);
+                containerForPlayerChoice.appendChild(forComputerChoice);
+
+                containerForPlayerChoice.style = 'display: flex; align-items: center'
+
+                targetResult.appendChild(containerForPlayerChoice);
                 targetResult.appendChild(answerElement);
             };
 
