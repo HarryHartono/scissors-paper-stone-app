@@ -1,3 +1,9 @@
+body {
+    background-color: black;
+    color: white;
+    align-content: center;
+}
+
 .playing-hand {
     height: 100px;
 }
