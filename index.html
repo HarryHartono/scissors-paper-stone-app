@@ -24,6 +24,8 @@
                     computerAnswer = 'scissors';
                 };
 
+                console.log(computerAnswer)
+
 
                 const targetResult = document.getElementById('resultOutcome');
                 targetResult.innerHTML = '';
@@ -33,9 +35,9 @@
                     if (choiceOfPlayer === 'paper') {
                         answerElement.innerText = 'Draw! Please try again!';
                     } else if (choiceOfPlayer === 'stone') {
-                        answerElement.innerText = 'Congratulations! You won!';
-                    } else {
                         answerElement.innerText = 'Sorry! You lost!';
+                    } else {
+                        answerElement.innerText = 'Congratulations! You won!';
                     }
                 } else if (computerAnswer === 'stone') {
                     if (choiceOfPlayer === 'paper') {
