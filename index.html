@@ -3,16 +3,51 @@
     <head>
         <title>Scissors Paper Stone!</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div class="game-container">
-            <button id="stone" onclick="playerChoice('stone')"><img class="playing-hand" src="graphics/rock hand.png"></button>
-            <button id="paper" onclick="playerChoice('paper')"><img class="playing-hand" src="graphics/paper hand.png"></button>
-            <button id="scissors" onclick="playerChoice('scissors')"><img class="playing-hand" src="graphics/scissors hand.png"></button>
-        </div>
-        <div id="resultOutcome"></div>
+        <main class="game">
+            <div class="record-title">Your records for this session</div>
+            <div class="record-counter-container">
+                <div id="win-container" class="record-container">
+                    <div class="win-title">Wins</div>
+                    <div id="win-count"></div>
+                </div>
+                <div id="draw-container" class="record-container">
+                    <div class="draw-title">Draws</div>
+                    <div id="draw-count"></div>
+                </div>
+                <div id="lose-container" class="record-container">
+                    <div class="lose-title">Losses</div>
+                    <div id="lose-count"></div>
+                </div>
 
-        <script>         
+            </div>
+            <div class="game-container">
+                <button id="stone" onclick="playerChoice('stone')"><img class="playing-hand" src="graphics/rock hand.png"></button>
+                <button id="paper" onclick="playerChoice('paper')"><img class="playing-hand" src="graphics/paper hand.png"></button>
+                <button id="scissors" onclick="playerChoice('scissors')"><img class="playing-hand" src="graphics/scissors hand.png"></button>
+            </div>
+            <div id="player-vs-computer"></div>
+            <div id="resultOutcome"></div>
+        </main> 
+
+        <script>     
+        
+            let numberWins = 0;
+            let numberDraws = 0;
+            let numberLosses = 0;
+
+            const targetWins = document.getElementById('win-count');
+            targetWins.innerText = numberWins;
+
+            const targetDraws = document.getElementById('draw-count');
+            targetDraws.innerText = numberDraws;
+            
+            const targetLosses = document.getElementById('lose-count');
+            targetLosses.innerText = numberLosses;
 
             const playerChoice = (choiceOfPlayer) => {
                 let randomNumber = Math.random();
@@ -28,9 +63,12 @@
 
                 console.log(computerAnswer)
 
+                
 
                 const targetResult = document.getElementById('resultOutcome');
+                const playVsComp = document.getElementById('player-vs-computer');
                 targetResult.innerHTML = '';
+                playVsComp.innerHTML = '';
 
                 const answerElement = document.createElement('div');
                 const playerImgElement = document.createElement('img');
@@ -43,36 +81,45 @@
                     if (choiceOfPlayer === 'paper') {
                         playerImgElement.src = "graphics/paper hand.png";
                         answerElement.innerText = 'Draw! Please try again!';
+                        numberDraws = numberDraws + 1;
                     } else if (choiceOfPlayer === 'stone') {
                         playerImgElement.src = "graphics/rock hand.png";
                         answerElement.innerText = 'Sorry! You lost!';
+                        numberLosses = numberLosses + 1;
                     } else {
                         playerImgElement.src = "graphics/scissors hand.png";
                         answerElement.innerText = 'Congratulations! You won!';
+                        numberWins = numberWins + 1;
                     }
                 } else if (computerAnswer === 'stone') {
                     computerImgElement.src = "graphics/rock hand.png";
                     if (choiceOfPlayer === 'paper') {
                         playerImgElement.src = "graphics/paper hand.png";
                         answerElement.innerText = 'Congratulations! You won!';
+                        numberWins = numberWins + 1;
                     } else if (choiceOfPlayer === 'stone') {
                         playerImgElement.src = "graphics/rock hand.png";
                         answerElement.innerText = 'Draw! Please try again!';
+                        numberDraws = numberDraws + 1;
                     } else {
                         playerImgElement.src = "graphics/scissors hand.png";
                         answerElement.innerText = 'Sorry! You lost!';
+                        numberLosses = numberLosses + 1;
                     }
                 } else {
                     computerImgElement.src = "graphics/scissors hand.png";
                     if (choiceOfPlayer === 'paper') {
                         playerImgElement.src = "graphics/paper hand.png";
                         answerElement.innerText = 'Sorry! You lost!';
+                        numberLosses = numberLosses + 1;
                     } else if (choiceOfPlayer === 'stone') {
                         playerImgElement.src = "graphics/rock hand.png";
                         answerElement.innerText = 'Congratulations! You won!';
+                        numberWins = numberWins + 1;
                     } else {
                         playerImgElement.src = "graphics/scissors hand.png";
                         answerElement.innerText = 'Draw! Please try again!';
+                        numberDraws = numberDraws + 1;
                     }
                 };
 
@@ -84,6 +131,7 @@
                 
                 forPlayerChoice.appendChild(playerImgElement);
                 forPlayerChoice.appendChild(forPlayerChoiceYou);
+                forPlayerChoice.style = 'display: flex; flex-direction: column; align-items: center;'
                 containerForPlayerChoice.appendChild(forPlayerChoice);
                 
 
@@ -92,6 +140,7 @@
                 containerForPlayerChoice.appendChild(newDiv);
 
                 const forComputerChoice = document.createElement('div');
+                forComputerChoice.style = 'display: flex; flex-direction: column; align-items: center;'
                 const forComputerChoiceComputer = document.createElement('div');
                 forComputerChoiceComputer.innerText = 'Computer';
 
@@ -100,10 +149,19 @@
                 forComputerChoice.appendChild(forComputerChoiceComputer);
                 containerForPlayerChoice.appendChild(forComputerChoice);
 
-                containerForPlayerChoice.style = 'display: flex; align-items: center'
+                containerForPlayerChoice.style = 'display: flex; align-items: center; column-gap:30px'
 
-                targetResult.appendChild(containerForPlayerChoice);
+                playVsComp.appendChild(containerForPlayerChoice);
                 targetResult.appendChild(answerElement);
+
+                const targetWins = document.getElementById('win-count');
+                targetWins.innerText = numberWins;
+
+                const targetDraws = document.getElementById('draw-count');
+                targetDraws.innerText = numberDraws;
+                
+                const targetLosses = document.getElementById('lose-count');
+                targetLosses.innerText = numberLosses;
             };
 
         </script>
