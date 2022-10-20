@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Scissors Paper Stone!</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <button id="stone" onclick="playerChoice('stone')"><img class="playing-hand" src="graphics/rock hand.png"></button>
+        <button id="paper" onclick="playerChoice('paper')"><img class="playing-hand" src="graphics/paper hand.png"></button>
+        <button id="scissors" onclick="playerChoice('scissors')"><img class="playing-hand" src="graphics/scissors hand.png"></button>
+        <div id="resultOutcome"></div>
+
+        <script>         
+
+            const playerChoice = (choiceOfPlayer) => {
+                let randomNumber = Math.random();
+                let computerAnswer = '';
+
+                if (randomNumber <= 0.333) {
+                    computerAnswer = 'paper';
+                } else if (randomNumber <= 0.666 && randomNumber > 0.333) {
+                    computerAnswer = 'stone';
+                } else {
+                    computerAnswer = 'scissors';
+                };
+
+
+                const targetResult = document.getElementById('resultOutcome');
+                targetResult.innerHTML = '';
+
+                const answerElement = document.createElement('div');
+                if (computerAnswer === 'paper') {
+                    if (choiceOfPlayer === 'paper') {
+                        answerElement.innerText = 'Draw! Please try again!';
+                    } else if (choiceOfPlayer === 'stone') {
+                        answerElement.innerText = 'Congratulations! You won!';
+                    } else {
+                        answerElement.innerText = 'Sorry! You lost!';
+                    }
+                } else if (computerAnswer === 'stone') {
+                    if (choiceOfPlayer === 'paper') {
+                        answerElement.innerText = 'Congratulations! You won!';
+                    } else if (choiceOfPlayer === 'stone') {
+                        answerElement.innerText = 'Draw! Please try again!';
+                    } else {
+                        answerElement.innerText = 'Sorry! You lost!';
+                    }
+                } else {
+                    if (choiceOfPlayer === 'paper') {
+                        answerElement.innerText = 'Sorry! You lost!';
+                    } else if (choiceOfPlayer === 'stone') {
+                        answerElement.innerText = 'Congratulations! You won!';
+                    } else {
+                        answerElement.innerText = 'Draw! Please try again!';
+                    }
+                };
+
+                targetResult.appendChild(answerElement);
+            };
+
+        </script>
+    </body>
+</html>
