@@ -25,11 +25,13 @@
                 </div>
 
             </div>
+            <div class="choose-title">Pick your choice</div>
             <div class="game-container">
                 <button id="stone" onclick="playerChoice('stone')"><img class="playing-hand" src="graphics/rock hand.png"></button>
                 <button id="paper" onclick="playerChoice('paper')"><img class="playing-hand" src="graphics/paper hand.png"></button>
                 <button id="scissors" onclick="playerChoice('scissors')"><img class="playing-hand" src="graphics/scissors hand.png"></button>
             </div>
+            <div id="result-title" style="margin-bottom:-20px;"></div>
             <div id="player-vs-computer"></div>
             <div id="resultOutcome"></div>
         </main> 
@@ -64,7 +66,8 @@
                 console.log(computerAnswer)
 
                 
-
+                const resultTitle = document.getElementById('result-title');
+                resultTitle.innerText = 'Result'
                 const targetResult = document.getElementById('resultOutcome');
                 const playVsComp = document.getElementById('player-vs-computer');
                 targetResult.innerHTML = '';
